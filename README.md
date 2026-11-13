@@ -59,7 +59,7 @@ pwsh -NoProfile -File .\Uninstall-GrokBotRouteService.ps1
 ## Tests
 
 ```text
-wsl -d podman-uosserver -e bash -lc 'podman run --rm --cpus=4 --memory=4g --pids-limit=512 -v /mnt/d/Cursor/windows-optimizations/grok-bot-route:/work:Z -v nuget-cache:/root/.nuget/packages -w /work mcr.microsoft.com/dotnet/sdk:9.0 dotnet test GrokBotRoute.sln -c Release'
+wsl -d podman-uosserver -e bash -lc 'podman run --rm --cpus=4 --memory=4g --pids-limit=512 -v /mnt/d/Cursor/windows-optimizations/grok-bot-tunnel-service:/work:Z -v nuget-cache:/root/.nuget/packages -w /work mcr.microsoft.com/dotnet/sdk:9.0 dotnet test GrokBotRoute.sln -c Release'
 ```
 
 The rootless Podman runtime directory `/run/user/1000` must exist and be writable by the Podman user. A non-interactive `wsl` launch with no logind session creates it as follows:

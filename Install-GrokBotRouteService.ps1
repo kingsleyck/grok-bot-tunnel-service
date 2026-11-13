@@ -23,7 +23,7 @@ if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
     throw 'Install-GrokBotRouteService must run in an elevated PowerShell.'
 }
 
-$bash = 'sudo -n mkdir -p /run/user/1000 && sudo -n chown user:user /run/user/1000 && sudo -n chmod 700 /run/user/1000 && podman run --rm --cpus=4 --memory=4g --pids-limit=512 -v /mnt/d/Cursor/windows-optimizations/grok-bot-route:/work:Z -v nuget-cache:/root/.nuget/packages -w /work mcr.microsoft.com/dotnet/sdk:9.0 dotnet publish src/GrokBotRoute/GrokBotRoute.csproj -c Release -r win-x64 --self-contained true -o /work/publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true'
+$bash = 'sudo -n mkdir -p /run/user/1000 && sudo -n chown user:user /run/user/1000 && sudo -n chmod 700 /run/user/1000 && podman run --rm --cpus=4 --memory=4g --pids-limit=512 -v /mnt/d/Cursor/windows-optimizations/grok-bot-tunnel-service:/work:Z -v nuget-cache:/root/.nuget/packages -w /work mcr.microsoft.com/dotnet/sdk:9.0 dotnet publish src/GrokBotRoute/GrokBotRoute.csproj -c Release -r win-x64 --self-contained true -o /work/publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true'
 & wsl.exe -d podman-uosserver -e bash -lc $bash
 if ($LASTEXITCODE -ne 0) {
     throw "container publish exited $LASTEXITCODE"
